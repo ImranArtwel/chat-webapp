@@ -32,14 +32,13 @@ export const Chat = () => {
     // Connect to the server
     const newSocket = io(SOCKET_SERVER_URL, {
       withCredentials: true,
+      reconnection: false,
       query: {
         userId: user?._id,
       },
     });
     newSocket.emit("joinRoom", { room: room });
     setSocket(newSocket);
-
-    // immedeately join the room
 
     // Clean up on component unmount
     return () => newSocket.close();
